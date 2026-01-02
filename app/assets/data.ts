@@ -1,4 +1,4 @@
-{
+export default {
   "transcription_info": {
     "language": "en",
     "language_probability": 1,
