@@ -1,13 +1,35 @@
 <script setup lang="ts">
-import { useTemplateRef } from 'vue'
+import { useTemplateRef, ref } from 'vue'
 
-const media = useTemplateRef('audio')
-
-const moveTo = (time) => {
-  media.value?.currentTime = time
+interface Word {
+  word: string
+  start: number
 }
 
-const data = await import('@/assets/data.json');
+interface Segment {
+  start: number
+  words: Array<Word>
+}
+
+interface DataValue {
+  segments: Array<Segment>
+}
+
+interface DataStructure {
+  value?: DataValue
+}
+
+const media = useTemplateRef<HTMLAudioElement>('audio')
+const data = ref<DataStructure | null>(null)
+
+const moveTo = (time: number) => {
+  if(!media?.value) return;
+  media.value.currentTime = time
+}
+
+;(async () => {
+  data.value = await import('@/assets/data.json');
+})();
 
 const getSeconds = (seconds: number) => {
   return Math.round(seconds % 60).toString().padStart(2, '0');
@@ -17,9 +39,9 @@ const getMinutes = (seconds: number) => {
 }
 
 const onTextClick = (start: number) => {
-  if(!media.value) return;
-  media.value?.currentTime = start;
-  media.value?.play();
+  if(!media?.value) return;
+  media.value.currentTime = start;
+  media?.value?.play();
 }
 </script>
 
@@ -28,7 +50,7 @@ const onTextClick = (start: number) => {
     <audio ref="audio" controls>
       <source src="https://github.com/Azure-Samples/cognitive-services-speech-sdk/raw/master/scenarios/call-center/sampledata/Call6_mono_16k_az_apply_loan.wav"/>
     </audio>
-    <div v-for="segment in data.segments" :key="segment.start">
+    <div v-for="segment in data?.value?.segments" :key="segment.start">
       <a @click.prevent="onTextClick(segment.start)">[{{ getMinutes(segment.start) }}:{{ getSeconds(segment.start) }}]</a> <a class="cursor-pointer" v-for="word in segment.words" :key="word.word" @click.prevent="moveTo(word.start)" >{{ word.word + " " }}</a>
     </div>
   </div>
