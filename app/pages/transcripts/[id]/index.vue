@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useTemplateRef, ref, onMounted, watch } from 'vue'
-import test from '~/assets/data'
+import { useTemplateRef, ref } from 'vue'
+import test from '../../../assets/data'
 
 interface Word {
   word: string
@@ -45,11 +45,11 @@ function updateCurrentTime() {
 <template>
   <div class="items-center justify-center w-screen h-screen">
     <audio ref="audio" controls @timeupdate="updateCurrentTime">
-      <source src="https://github.com/Azure-Samples/cognitive-services-speech-sdk/raw/master/scenarios/call-center/sampledata/Call6_mono_16k_az_apply_loan.wav"/>
+      <source src="https://github.com/Azure-Samples/cognitive-services-speech-sdk/raw/master/scenarios/call-center/sampledata/Call6_mono_16k_az_apply_loan.wav" >
     </audio>
     <div v-for="segment in data?.segments" :key="segment.start">
       <a @click.prevent="onTextClick(segment.start)">[{{ getMinutes(segment.start) }}:{{ getSeconds(segment.start) }}]</a> 
-      <a class="cursor-pointer" v-for="word in segment.words" :key="word.word" @click.prevent="moveTo(word.start)" >
+      <a v-for="word in segment.words" :key="word.word" class="cursor-pointer" @click.prevent="moveTo(word.start)" >
         <b v-if="currentTime + 0.3 > word.start">
           {{ word.word + " " }}
         </b>
