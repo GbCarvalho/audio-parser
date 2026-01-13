@@ -8,5 +8,10 @@
   "tailwindCSS.classAttributes": ["class", "ui"],
   "tailwindCSS.experimental.classRegex": [
     ["ui:\\s*{([^)]*)\\s*}", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+  ],
+  "eslint.useFlatConfig": true,
+  "cSpell.words": [
+    "lucide",
+    "Slideover"
   ]
 }
