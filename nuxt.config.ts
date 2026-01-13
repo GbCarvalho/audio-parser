@@ -1,3 +1,5 @@
+import { m } from "vue-router/dist/router-CWoNjPRp.mjs";
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
@@ -9,12 +11,16 @@ export default defineNuxtConfig({
     }
   },
 
+  css: ['~/assets/css/main.css'],
+
   modules: [
     '@nuxt/eslint',
     '@nuxt/fonts',
     '@nuxt/hints',
     '@nuxt/icon',
     '@nuxt/test-utils',
-    '@unocss/nuxt'
+    '@unocss/nuxt',
+    '@nuxt/ui',
+    '@vueuse/nuxt'
   ]
 })
