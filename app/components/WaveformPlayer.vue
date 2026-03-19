@@ -40,7 +40,7 @@ function onVolumeChange(e: Event) {
 }
 
 function seekTo(time: number) {
-  ws?.setTime(time)
+  ws?.seekTo(time)
 }
 
 function play() {
