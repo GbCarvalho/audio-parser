@@ -72,7 +72,7 @@ function isSentencePast(sentence: Sentence): boolean {
               @click.prevent="onSeek(sentence.start)"
             >
               <span :class="{
-                'text-navy font-medium': isSentenceActive(sentence),
+                'text-teal font-medium': isSentenceActive(sentence),
                 'opacity-40': isSentencePast(sentence),
               }">{{ sentence.text + ' ' }}</span>
             </a>
