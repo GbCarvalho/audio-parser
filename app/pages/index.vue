@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useTemplateRef, ref, reactive, computed, type Ref } from 'vue'
+import { Temporal } from 'temporal-polyfill'
 import TranscriptionPanel from '~/components/transcripts/TranscriptionPanel.vue'
 import SummarizationPanel from '~/components/transcripts/SummarizationPanel.vue'
 import sampleData from '~/assets/data'
