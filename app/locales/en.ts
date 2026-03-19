@@ -17,6 +17,7 @@ const en: Record<I18nKey, string> = {
   summaryText: 'Once AI integration is enabled, a summary with key points and action items will appear here.',
   keyPointsTitle: 'Key points',
   keyPointsText: 'Main topics highlighted from the audio.',
+  audioError: 'Failed to load audio.',
 }
 
 export default en

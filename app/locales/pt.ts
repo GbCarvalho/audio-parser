@@ -15,6 +15,7 @@ const pt = {
   summaryText: 'Quando a integração com IA for ativada, um resumo com pontos-chave e itens de ação aparecerá aqui.',
   keyPointsTitle: 'Pontos-chave',
   keyPointsText: 'Principais tópicos destacados do áudio.',
+  audioError: 'Erro ao carregar o áudio.',
 } as const
 
 export type I18nKey = keyof typeof pt
