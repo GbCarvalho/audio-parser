@@ -1,15 +1,17 @@
 <script setup lang="ts">
-const summaryItems = [
-  { title: 'Resumo', text: 'Resumo automático aparecerá aqui.' },
-  { title: 'Pontos-chave', text: 'Principais tópicos destacados do áudio.' }
-]
+const { t } = useI18n()
+
+const summaryItems = computed(() => [
+  { title: t('summaryTitle'), text: t('summaryText') },
+  { title: t('keyPointsTitle'), text: t('keyPointsText') },
+])
 </script>
 
 <template>
   <UCard :ui="{ body: 'p-4 sm:p-6' }">
     <div class="mb-4 flex items-center justify-between">
-      <h2 class="text-base font-semibold text-gray-800">Sumarização</h2>
-      <span class="text-xs text-gray-400">Em breve</span>
+      <h2 class="text-base font-semibold text-gray-800">{{ t('summarizationTitle') }}</h2>
+      <span class="text-xs text-gray-400">{{ t('comingSoon') }}</span>
     </div>
     <div class="space-y-4">
       <div
