@@ -24,7 +24,7 @@ const activeItem = computed(() => {
   const idx = items.findIndex(p =>
     currentTime >= p.originalData.start && currentTime <= p.originalData.end
   )
-  return idx
+  return Math.max(idx, 0)
 })
 
 const scrollContainer = ref<HTMLElement | null>(null)
