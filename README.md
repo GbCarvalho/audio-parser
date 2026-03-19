@@ -36,22 +36,9 @@ pnpm preview  # preview production build locally
 
 ## Project structure
 
-```
-app/
-├── assets/
-│   ├── data.ts          # Deepgram transcription sample data
-│   └── main.css         # Tailwind + @nuxt/ui entry
-├── composables/
-│   └── useI18n.ts       # Locale detection and t() helper
-├── components/
-│   └── transcripts/
-│       ├── TranscriptionPanel.vue
-│       └── SummarizationPanel.vue
-├── locales/
-│   ├── pt.ts            # pt-BR strings (source of truth for keys)
-│   └── en.ts            # English strings
-├── pages/
-│   └── index.vue        # Main page
-└── plugins/
-    └── temporal.ts      # Temporal API polyfill
-```
+Standard [Nuxt 4 `app/` directory](https://nuxt.com/docs/guide/directory-structure/app) layout. Non-conventional folders:
+
+- `app/assets/data.ts` — bundled Deepgram sample transcription (replaces a real API call)
+- `app/locales/` — EN and pt-BR string catalogs; `pt.ts` is the source of truth for i18n keys
+- `app/composables/useI18n.ts` — locale detection and `t()` helper (wraps `useNavigatorLanguage`)
+- `app/plugins/temporal.ts` — Temporal API polyfill registered before any page renders
