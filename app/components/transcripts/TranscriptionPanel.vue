@@ -32,6 +32,15 @@ const activeItem = computed(() => {
   })
   return Math.max(activeItemIndex, 0);
 });
+
+const scrollContainer = ref<HTMLElement | null>(null)
+
+watch(activeItem, (idx) => {
+  const el = scrollContainer.value?.querySelector<HTMLElement>(
+    `[data-paragraph-index="${idx}"]`
+  )
+  el?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+})
 </script>
 
 <template>
@@ -52,8 +61,8 @@ const activeItem = computed(() => {
         class="pt-2"
         v-model="activeItem"
       >
-        <template #description="{ item }">
-          <div class="flex flex-wrap gap-y-1">
+        <template #description="{ item, index }">
+          <div class="flex flex-wrap gap-y-1" :data-paragraph-index="index ?? items.indexOf(item)">
             <a
               v-for="sentence in item.sentences"
               :key="sentence.text"
