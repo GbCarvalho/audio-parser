@@ -1,29 +1,19 @@
 <script setup lang="ts">
 const { t } = useI18n()
-
-const summaryItems = computed(() => [
-  { title: t('summaryTitle'), text: t('summaryText') },
-  { title: t('keyPointsTitle'), text: t('keyPointsText') },
-])
 </script>
 
 <template>
-  <UCard :ui="{ body: 'p-4 sm:p-6' }">
-    <div class="mb-4 flex items-center justify-between">
-      <h2 class="text-base font-semibold text-gray-800">{{ t('summarizationTitle') }}</h2>
-      <span class="text-xs text-gray-400">{{ t('comingSoon') }}</span>
+  <div class="flex flex-col h-full border border-border-warm bg-surface">
+    <div class="px-4 pt-4 pb-3 sm:px-6 sm:pt-5 shrink-0 flex items-center justify-between border-b border-border-warm">
+      <h2 class="text-sm font-semibold text-ink">{{ t('summarizationTitle') }}</h2>
+      <span class="text-xs text-ink-faint font-mono">{{ t('comingSoon') }}</span>
     </div>
-    <div class="space-y-4">
-      <div
-        v-for="item in summaryItems"
-        :key="item.title"
-        class="rounded-xl border border-dashed border-gray-200 bg-gray-50/60 p-4 text-sm text-gray-600"
-      >
-        <div class="mb-1 text-xs font-semibold uppercase tracking-wide text-gray-400">
-          {{ item.title }}
-        </div>
-        <p>{{ item.text }}</p>
+    <div class="flex-1 flex flex-col items-center justify-center px-6 py-12 text-center">
+      <div class="mb-4 text-ink-faint">
+        <UIcon name="i-lucide-file-text" class="h-8 w-8" />
       </div>
+      <p class="text-sm font-medium text-ink mb-1">{{ t('summaryTitle') }}</p>
+      <p class="text-sm text-ink-muted max-w-xs">{{ t('summaryText') }}</p>
     </div>
-  </UCard>
+  </div>
 </template>

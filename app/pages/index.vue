@@ -105,57 +105,41 @@ const transcripts = computed<TranscriptItem[]>(() =>
 </script>
 
 <template>
-  <div class="h-screen w-screen overflow-hidden flex flex-col bg-linear-to-b from-gray-50 via-white to-white">
+  <div class="h-screen w-screen overflow-hidden flex flex-col bg-page">
     <div class="mx-auto w-full max-w-5xl px-4 py-4 sm:px-6 lg:px-8 sm:py-6 flex flex-col flex-1 min-h-0">
-      <div class="mb-4 shrink-0 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-        <div class="space-y-1">
-          <h1 class="text-2xl font-semibold text-gray-900 sm:text-3xl">{{ t('title') }}</h1>
-          <p class="text-sm text-gray-500">{{ t('subtitle') }}</p>
+
+      <!-- Header -->
+      <div class="mb-4 shrink-0 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+        <div class="space-y-0.5">
+          <h1 class="text-xl font-semibold text-ink sm:text-2xl">{{ t('title') }}</h1>
+          <p class="text-sm text-ink-muted">{{ t('subtitle') }}</p>
         </div>
-        <div class="flex items-center gap-3">
-          <span class="inline-flex items-center gap-2 rounded-full bg-primary-50 px-3 py-1 text-xs font-medium text-primary-700 ring-1 ring-primary-100">
-            <span class="h-1.5 w-1.5 rounded-full bg-primary-500"></span>
-            {{ t('activePlayback') }}
-          </span>
-          <button
-            @click="toggleLocale"
-            class="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-3 py-1 text-xs font-medium text-gray-600 transition hover:bg-gray-50 hover:text-gray-900"
-          >
-            <UIcon name="i-lucide-languages" class="h-3.5 w-3.5" />
-            {{ locale === 'pt' ? 'EN' : 'PT' }}
-          </button>
-        </div>
+        <button
+          @click="toggleLocale"
+          class="inline-flex items-center gap-1.5 border border-border-warm bg-surface px-3 py-1 text-xs font-medium text-ink-muted transition hover:bg-surface-alt hover:text-ink self-start sm:self-auto"
+        >
+          <UIcon name="i-lucide-languages" class="h-3.5 w-3.5" />
+          {{ locale === 'pt' ? 'EN' : 'PT' }}
+        </button>
       </div>
 
-      <div class="mb-4 shrink-0">
-        <UCard :ui="{ body: 'p-4 sm:p-5' }">
-          <div class="flex flex-col gap-4">
-            <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-              <div class="flex items-center gap-2 text-sm font-medium text-gray-700">
-                <span class="inline-flex h-7 w-7 items-center justify-center rounded-full bg-primary-50 text-primary-600 ring-1 ring-primary-100">
-                  <UIcon name="i-lucide-audio-lines" class="h-4 w-4" />
-                </span>
-                {{ t('audio') }}
-              </div>
-              <div class="flex items-center gap-2 text-xs text-gray-400">
-                <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
-                {{ t('currentTime') }}: {{ formatTime(currentTime) }}
-              </div>
-            </div>
-            <div class="rounded-2xl border border-gray-200 bg-white/80 p-3 shadow-sm ring-1 ring-gray-100 sm:p-4">
-              <audio
-                ref="audio"
-                controls
-                @timeupdate="updateCurrentTime"
-                class="w-full rounded-xl bg-white"
-              >
-                <source :src="AUDIO_URL">
-              </audio>
-            </div>
-          </div>
-        </UCard>
+      <!-- Audio player -->
+      <div class="mb-4 shrink-0 border border-border-warm bg-surface p-4 sm:p-5">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-xs font-medium text-ink-muted uppercase tracking-wide font-mono">{{ t('audio') }}</span>
+          <span class="text-xs text-ink-faint font-mono">{{ formatTime(currentTime) }}</span>
+        </div>
+        <audio
+          ref="audio"
+          controls
+          @timeupdate="updateCurrentTime"
+          class="w-full"
+        >
+          <source :src="AUDIO_URL">
+        </audio>
       </div>
 
+      <!-- Tabs -->
       <UTabs :items="tabs" class="w-full flex-1 min-h-0 flex flex-col overflow-hidden" :ui="{ content: 'flex-1 min-h-0 overflow-hidden' }">
         <template #transcription>
           <TranscriptionPanel
@@ -168,6 +152,7 @@ const transcripts = computed<TranscriptItem[]>(() =>
           <SummarizationPanel />
         </template>
       </UTabs>
+
     </div>
   </div>
 </template>

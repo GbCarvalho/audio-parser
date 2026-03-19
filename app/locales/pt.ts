@@ -11,8 +11,8 @@ const pt = {
   blocks: 'blocos',
   summarizationTitle: 'Sumarização',
   comingSoon: 'Em breve',
-  summaryTitle: 'Resumo',
-  summaryText: 'Resumo automático aparecerá aqui.',
+  summaryTitle: 'Resumo automático',
+  summaryText: 'Quando a integração com IA for ativada, um resumo com pontos-chave e itens de ação aparecerá aqui.',
   keyPointsTitle: 'Pontos-chave',
   keyPointsText: 'Principais tópicos destacados do áudio.',
 } as const
