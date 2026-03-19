@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { useTemplateRef, ref, reactive, computed, type Ref } from 'vue'
+import { useTemplateRef, ref, computed } from 'vue'
 import { Temporal } from 'temporal-polyfill'
 import TranscriptionPanel from '~/components/transcripts/TranscriptionPanel.vue'
 import SummarizationPanel from '~/components/transcripts/SummarizationPanel.vue'
+import WaveformPlayer from '~/components/WaveformPlayer.vue'
 import sampleData from '~/assets/data'
 import type { TimelineItem } from '@nuxt/ui'
 
@@ -58,16 +59,11 @@ interface TranscriptItem extends TimelineItem {
   sentences: Sentence[]
 }
 
-const AUDIO_URL = 'https://github.com/Azure-Samples/cognitive-services-speech-sdk/raw/master/scenarios/call-center/sampledata/Call6_mono_16k_az_apply_loan.wav'
+const AUDIO_URL = 'https://raw.githubusercontent.com/Azure-Samples/cognitive-services-speech-sdk/master/scenarios/call-center/sampledata/Call6_mono_16k_az_apply_loan.wav'
 
-const media = useTemplateRef<HTMLAudioElement>('audio') as Ref<HTMLAudioElement | null>
+const player = useTemplateRef<InstanceType<typeof WaveformPlayer>>('player')
 const data = ref<DeepgramValue | null>(sampleData)
 const currentTime = ref(0)
-
-function moveTo(time: number) {
-  if (!media.value) return
-  media.value.currentTime = time
-}
 
 const tabs = computed(() => [
   { label: t('tabTranscription'), slot: 'transcription' },
@@ -75,14 +71,8 @@ const tabs = computed(() => [
 ])
 
 function onTextClick(time: number) {
-  moveTo(time)
-  if (!media?.value) return
-  media.value.play()
-}
-
-function updateCurrentTime() {
-  if (!media.value) return
-  currentTime.value = media.value.currentTime
+  player.value?.seekTo(time)
+  player.value?.play()
 }
 
 function formatTime(seconds: number) {
@@ -125,18 +115,11 @@ const transcripts = computed<TranscriptItem[]>(() =>
 
       <!-- Audio player -->
       <div class="mb-4 shrink-0 border border-border-warm bg-surface p-4 sm:p-5">
-        <div class="flex items-center justify-between mb-3">
-          <span class="text-xs font-medium text-ink-muted uppercase tracking-wide font-mono">{{ t('audio') }}</span>
-          <span class="text-xs text-ink-faint font-mono">{{ formatTime(currentTime) }}</span>
-        </div>
-        <audio
-          ref="audio"
-          controls
-          @timeupdate="updateCurrentTime"
-          class="w-full"
-        >
-          <source :src="AUDIO_URL">
-        </audio>
+        <WaveformPlayer
+          ref="player"
+          :src="AUDIO_URL"
+          @timeupdate="currentTime = $event"
+        />
       </div>
 
       <!-- Tabs -->

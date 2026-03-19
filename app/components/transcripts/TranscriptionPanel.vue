@@ -20,12 +20,19 @@ type TranscriptItem = TimelineItem & {
 
 const { t } = useI18n()
 
+const clickedIdx = ref(-1)
+
 const activeItem = computed(() => {
-  const idx = items.findIndex(p =>
+  const playbackIdx = items.findIndex(p =>
     currentTime >= p.originalData.start && currentTime <= p.originalData.end
   )
-  return Math.max(idx, 0)
+  return Math.max(playbackIdx, clickedIdx.value)
 })
+
+function handleSentenceClick(sentenceStart: number, paragraphIdx: number) {
+  clickedIdx.value = paragraphIdx
+  onSeek(sentenceStart)
+}
 
 const scrollContainer = ref<HTMLElement | null>(null)
 
@@ -69,10 +76,10 @@ function isSentencePast(sentence: Sentence): boolean {
               v-for="sentence in item.sentences"
               :key="sentence.text"
               class="cursor-pointer px-1 py-0.5 transition-opacity hover:opacity-80"
-              @click.prevent="onSeek(sentence.start)"
+              @click.prevent="handleSentenceClick(sentence.start, index ?? items.indexOf(item))"
             >
               <span :class="{
-                'text-navy font-medium': isSentenceActive(sentence),
+                'text-teal font-medium': isSentenceActive(sentence),
                 'opacity-40': isSentencePast(sentence),
               }">{{ sentence.text + ' ' }}</span>
             </a>
