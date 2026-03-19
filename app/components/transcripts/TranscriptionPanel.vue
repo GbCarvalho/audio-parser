@@ -40,35 +40,37 @@ const activeItem = computed(() => {
       <h2 class="text-base font-semibold text-gray-800">{{ t('transcriptionsTitle') }}</h2>
       <span class="text-xs text-gray-400">{{ items.length }} {{ t('blocks') }}</span>
     </div>
-    <UTimeline
-      :items="items"
-      :ui="{
-        date: 'float-start mr-1 text-gray-400 text-xs',
-        item: 'gap-3',
-        title: 'text-sm font-semibold text-gray-900',
-        description: 'text-sm leading-relaxed text-gray-600'
-      }"
-      class="pt-2"
-      v-model="activeItem"
-    >
-      <template #description="{ item }">
-        <div class="flex flex-wrap gap-y-1">
-          <a
-            v-for="sentence in item.sentences"
-            :key="sentence.text"
-            class="cursor-pointer rounded px-1 py-0.5 transition hover:bg-primary-50"
-            @click.prevent="onSeek(sentence.start)"
-          >
-            <span :class="[(currentTime + 0.3 > sentence.start) ? highlightedTime : '']">
-              {{ sentence.text + ' ' }}
-            </span>
-          </a>
-        </div>
-      </template>
+    <div ref="scrollContainer" class="max-h-[60vh] overflow-y-auto pr-1">
+      <UTimeline
+        :items="items"
+        :ui="{
+          date: 'float-start mr-1 text-gray-400 text-xs',
+          item: 'gap-3',
+          title: 'text-sm font-semibold text-gray-900',
+          description: 'text-sm leading-relaxed text-gray-600'
+        }"
+        class="pt-2"
+        v-model="activeItem"
+      >
+        <template #description="{ item }">
+          <div class="flex flex-wrap gap-y-1">
+            <a
+              v-for="sentence in item.sentences"
+              :key="sentence.text"
+              class="cursor-pointer rounded px-1 py-0.5 transition hover:bg-primary-50"
+              @click.prevent="onSeek(sentence.start)"
+            >
+              <span :class="[(currentTime + 0.3 > sentence.start) ? highlightedTime : '']">
+                {{ sentence.text + ' ' }}
+              </span>
+            </a>
+          </div>
+        </template>
 
-      <template #date="{ item }">
-        [{{ item.date }}]
-      </template>
-    </UTimeline>
+        <template #date="{ item }">
+          [{{ item.date }}]
+        </template>
+      </UTimeline>
+    </div>
   </UCard>
 </template>
