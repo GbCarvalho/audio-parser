@@ -39,17 +39,17 @@ watch(activeItem, (idx) => {
   const el = scrollContainer.value?.querySelector<HTMLElement>(
     `[data-paragraph-index="${idx}"]`
   )
-  el?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+  el?.scrollIntoView({ behavior: 'smooth', block: 'center' })
 })
 </script>
 
 <template>
-  <UCard :ui="{ body: 'p-4 sm:p-6' }">
-    <div class="mb-4 flex items-center justify-between">
+  <UCard :ui="{ root: 'flex flex-col h-full', body: 'p-4 sm:p-6 flex flex-col flex-1 min-h-0' }">
+    <div class="mb-4 shrink-0 flex items-center justify-between">
       <h2 class="text-base font-semibold text-gray-800">{{ t('transcriptionsTitle') }}</h2>
       <span class="text-xs text-gray-400">{{ items.length }} {{ t('blocks') }}</span>
     </div>
-    <div ref="scrollContainer" class="max-h-[60vh] overflow-y-auto pr-1">
+    <div ref="scrollContainer" class="flex-1 min-h-0 overflow-y-auto pr-1">
       <UTimeline
         :items="items"
         :ui="{

@@ -105,9 +105,9 @@ const transcripts = computed<TranscriptItem[]>(() =>
 </script>
 
 <template>
-  <div class="min-h-screen bg-linear-to-b from-gray-50 via-white to-white">
-    <div class="mx-auto w-full max-w-5xl px-4 py-6 sm:px-6 lg:px-8 sm:py-10">
-      <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+  <div class="h-screen w-screen overflow-hidden flex flex-col bg-linear-to-b from-gray-50 via-white to-white">
+    <div class="mx-auto w-full max-w-5xl px-4 py-4 sm:px-6 lg:px-8 sm:py-6 flex flex-col flex-1 min-h-0">
+      <div class="mb-4 shrink-0 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div class="space-y-1">
           <h1 class="text-2xl font-semibold text-gray-900 sm:text-3xl">{{ t('title') }}</h1>
           <p class="text-sm text-gray-500">{{ t('subtitle') }}</p>
@@ -127,8 +127,8 @@ const transcripts = computed<TranscriptItem[]>(() =>
         </div>
       </div>
 
-      <div class="sticky top-0 z-20 mb-6 bg-gray-50/80 pt-4 backdrop-blur sm:mb-8 sm:pt-6">
-        <UCard class="backdrop-blur" :ui="{ body: 'p-4 sm:p-6' }">
+      <div class="mb-4 shrink-0">
+        <UCard :ui="{ body: 'p-4 sm:p-5' }">
           <div class="flex flex-col gap-4">
             <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
               <div class="flex items-center gap-2 text-sm font-medium text-gray-700">
@@ -142,7 +142,7 @@ const transcripts = computed<TranscriptItem[]>(() =>
                 {{ t('currentTime') }}: {{ formatTime(currentTime) }}
               </div>
             </div>
-            <div class="rounded-2xl border border-gray-200 bg-white/80 p-3 shadow-sm ring-1 ring-gray-100 backdrop-blur sm:p-4">
+            <div class="rounded-2xl border border-gray-200 bg-white/80 p-3 shadow-sm ring-1 ring-gray-100 sm:p-4">
               <audio
                 ref="audio"
                 controls
@@ -156,7 +156,7 @@ const transcripts = computed<TranscriptItem[]>(() =>
         </UCard>
       </div>
 
-      <UTabs :items="tabs" class="w-full">
+      <UTabs :items="tabs" class="w-full flex-1 min-h-0 flex flex-col overflow-hidden" :ui="{ content: 'flex-1 min-h-0 overflow-hidden' }">
         <template #transcription>
           <TranscriptionPanel
             :items="transcripts"
