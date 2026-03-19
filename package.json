@@ -20,6 +20,7 @@
     "@vueuse/nuxt": "^14.2.1",
     "eslint": "^9.39.2",
     "nuxt": "^4.2.2",
+    "tailwindcss": "^4.2.2",
     "temporal-polyfill": "^0.3.2",
     "vue": "^3.5.26",
     "vue-router": "^4.6.4"
