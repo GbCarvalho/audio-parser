@@ -5,6 +5,8 @@ import SummarizationPanel from '~/components/transcripts/SummarizationPanel.vue'
 import sampleData from '~/assets/data'
 import type { TimelineItem } from '@nuxt/ui'
 
+const { t } = useI18n()
+
 interface Word {
   word: string
   start: number
@@ -66,10 +68,10 @@ function moveTo(time: number) {
   media.value.currentTime = time
 }
 
-const tabs = [
-  { label: 'Transcrição', slot: 'transcription' },
-  { label: 'Resumo', slot: 'summarization' },
-]
+const tabs = computed(() => [
+  { label: t('tabTranscription'), slot: 'transcription' },
+  { label: t('tabSummary'), slot: 'summarization' },
+])
 
 function onTextClick(time: number) {
   moveTo(time)
@@ -92,7 +94,7 @@ function formatTime(seconds: number) {
 const transcripts = ref<TranscriptItem[]>(
   data.value?.results.channels?.[0]?.alternatives?.[0]?.paragraphs?.paragraphs.map(paragraph => ({
     date: formatTime(paragraph.start),
-    title: 'Falante ' + paragraph.speaker,
+    title: t('speaker') + ' ' + paragraph.speaker,
     icon: 'i-lucide-user',
     description: '',
     sentences: paragraph.sentences,
@@ -106,13 +108,13 @@ const transcripts = ref<TranscriptItem[]>(
     <div class="mx-auto w-full max-w-5xl px-4 py-6 sm:px-6 lg:px-8 sm:py-10">
       <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div class="space-y-1">
-          <h1 class="text-2xl font-semibold text-gray-900 sm:text-3xl">Transcrição</h1>
-          <p class="text-sm text-gray-500">Ouça e clique nos trechos para navegar.</p>
+          <h1 class="text-2xl font-semibold text-gray-900 sm:text-3xl">{{ t('title') }}</h1>
+          <p class="text-sm text-gray-500">{{ t('subtitle') }}</p>
         </div>
         <div class="flex items-center gap-2">
           <span class="inline-flex items-center gap-2 rounded-full bg-primary-50 px-3 py-1 text-xs font-medium text-primary-700 ring-1 ring-primary-100">
             <span class="h-1.5 w-1.5 rounded-full bg-primary-500"></span>
-            Reprodução ativa
+            {{ t('activePlayback') }}
           </span>
         </div>
       </div>
@@ -125,11 +127,11 @@ const transcripts = ref<TranscriptItem[]>(
                 <span class="inline-flex h-7 w-7 items-center justify-center rounded-full bg-primary-50 text-primary-600 ring-1 ring-primary-100">
                   <UIcon name="i-lucide-audio-lines" class="h-4 w-4" />
                 </span>
-                Áudio
+                {{ t('audio') }}
               </div>
               <div class="flex items-center gap-2 text-xs text-gray-400">
                 <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
-                Tempo atual: {{ formatTime(currentTime) }}
+                {{ t('currentTime') }}: {{ formatTime(currentTime) }}
               </div>
             </div>
             <div class="rounded-2xl border border-gray-200 bg-white/80 p-3 shadow-sm ring-1 ring-gray-100 backdrop-blur sm:p-4">
