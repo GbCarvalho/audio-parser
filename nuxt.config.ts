@@ -15,6 +15,14 @@ export default defineNuxtConfig({
     '@nuxt/hints',
     '@nuxt/icon',
     '@nuxt/test-utils',
-    '@unocss/nuxt'
-  ]
+    '@nuxt/ui'
+  ],
+
+  app: {
+    head: {
+      script: [
+        { src: 'https://cdn.jsdelivr.net/npm/temporal-polyfill@0.3.0/global.min.js' }
+      ]
+    }
+  }
 })
