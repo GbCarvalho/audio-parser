@@ -18,6 +18,8 @@ type TranscriptItem = TimelineItem & {
   originalData?: any
 }
 
+const { t } = useI18n()
+
 const highlightedTime = reactive({
   "text-primary-500": true,
   "opacity-50": true,
@@ -35,8 +37,8 @@ const activeItem = computed(() => {
 <template>
   <UCard :ui="{ body: 'p-4 sm:p-6' }">
     <div class="mb-4 flex items-center justify-between">
-      <h2 class="text-base font-semibold text-gray-800">Transcrições</h2>
-      <span class="text-xs text-gray-400">{{ items.length }} blocos</span>
+      <h2 class="text-base font-semibold text-gray-800">{{ t('transcriptionsTitle') }}</h2>
+      <span class="text-xs text-gray-400">{{ items.length }} {{ t('blocks') }}</span>
     </div>
     <UTimeline
       :items="items"
