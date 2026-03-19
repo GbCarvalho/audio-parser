@@ -5,7 +5,7 @@ import SummarizationPanel from '~/components/transcripts/SummarizationPanel.vue'
 import sampleData from '~/assets/data'
 import type { TimelineItem } from '@nuxt/ui'
 
-const { t } = useI18n()
+const { t, locale, toggleLocale } = useI18n()
 
 interface Word {
   word: string
@@ -91,7 +91,7 @@ function formatTime(seconds: number) {
     .toLocaleString(undefined, { style: 'digital', fractionalDigits: 0, hoursDisplay: 'auto' })
 }
 
-const transcripts = ref<TranscriptItem[]>(
+const transcripts = computed<TranscriptItem[]>(() =>
   data.value?.results.channels?.[0]?.alternatives?.[0]?.paragraphs?.paragraphs.map(paragraph => ({
     date: formatTime(paragraph.start),
     title: t('speaker') + ' ' + paragraph.speaker,
@@ -111,11 +111,18 @@ const transcripts = ref<TranscriptItem[]>(
           <h1 class="text-2xl font-semibold text-gray-900 sm:text-3xl">{{ t('title') }}</h1>
           <p class="text-sm text-gray-500">{{ t('subtitle') }}</p>
         </div>
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-3">
           <span class="inline-flex items-center gap-2 rounded-full bg-primary-50 px-3 py-1 text-xs font-medium text-primary-700 ring-1 ring-primary-100">
             <span class="h-1.5 w-1.5 rounded-full bg-primary-500"></span>
             {{ t('activePlayback') }}
           </span>
+          <button
+            @click="toggleLocale"
+            class="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-3 py-1 text-xs font-medium text-gray-600 transition hover:bg-gray-50 hover:text-gray-900"
+          >
+            <UIcon name="i-lucide-languages" class="h-3.5 w-3.5" />
+            {{ locale === 'pt' ? 'EN' : 'PT' }}
+          </button>
         </div>
       </div>
 

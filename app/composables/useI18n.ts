@@ -8,7 +8,11 @@ type Locale = keyof typeof locales
 export function useI18n() {
   const { language } = useNavigatorLanguage()
 
+  // User-selected locale shared across all components; null means "use browser default"
+  const userLocale = useState<Locale | null>('i18n-locale', () => null)
+
   const locale = computed<Locale>(() => {
+    if (userLocale.value) return userLocale.value
     const lang = language.value ?? 'pt'
     return lang.startsWith('pt') ? 'pt' : 'en'
   })
@@ -17,5 +21,9 @@ export function useI18n() {
     return locales[locale.value][key]
   }
 
-  return { t, locale }
+  function toggleLocale() {
+    userLocale.value = locale.value === 'pt' ? 'en' : 'pt'
+  }
+
+  return { t, locale, toggleLocale }
 }
