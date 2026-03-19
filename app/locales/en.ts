@@ -13,8 +13,8 @@ const en: Record<I18nKey, string> = {
   blocks: 'blocks',
   summarizationTitle: 'Summarization',
   comingSoon: 'Coming soon',
-  summaryTitle: 'Summary',
-  summaryText: 'Automatic summary will appear here.',
+  summaryTitle: 'Automatic summary',
+  summaryText: 'Once AI integration is enabled, a summary with key points and action items will appear here.',
   keyPointsTitle: 'Key points',
   keyPointsText: 'Main topics highlighted from the audio.',
 }

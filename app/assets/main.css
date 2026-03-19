@@ -1,2 +1,22 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
+
+@theme {
+  --font-sans: 'Sora', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  --color-page: #F7F6F3;
+  --color-surface: #FFFFFF;
+  --color-surface-alt: #F0EFEB;
+  --color-navy: #3D5A80;
+  --color-vermillion: #C53D43;
+  --color-teal: #10B981;
+  --color-border-warm: #E8E6E1;
+  --color-ink: #2D2D2D;
+  --color-ink-muted: #6B7280;
+  --color-ink-faint: #9CA3AF;
+}
+
+html {
+  background-color: #F7F6F3;
+}
