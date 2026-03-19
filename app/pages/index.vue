@@ -59,7 +59,7 @@ interface TranscriptItem extends TimelineItem {
   sentences: Sentence[]
 }
 
-const AUDIO_URL = 'https://github.com/Azure-Samples/cognitive-services-speech-sdk/raw/master/scenarios/call-center/sampledata/Call6_mono_16k_az_apply_loan.wav'
+const AUDIO_URL = 'https://raw.githubusercontent.com/Azure-Samples/cognitive-services-speech-sdk/master/scenarios/call-center/sampledata/Call6_mono_16k_az_apply_loan.wav'
 
 const player = useTemplateRef<InstanceType<typeof WaveformPlayer>>('player')
 const data = ref<DeepgramValue | null>(sampleData)
@@ -115,11 +115,16 @@ const transcripts = computed<TranscriptItem[]>(() =>
 
       <!-- Audio player -->
       <div class="mb-4 shrink-0 border border-border-warm bg-surface p-4 sm:p-5">
-        <WaveformPlayer
-          ref="player"
-          :src="AUDIO_URL"
-          @timeupdate="currentTime = $event"
-        />
+        <ClientOnly>
+          <WaveformPlayer
+            ref="player"
+            :src="AUDIO_URL"
+            @timeupdate="currentTime = $event"
+          />
+          <template #fallback>
+            <div class="h-14 w-full animate-pulse bg-surface-alt" />
+          </template>
+        </ClientOnly>
       </div>
 
       <!-- Tabs -->
