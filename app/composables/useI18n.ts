@@ -13,7 +13,7 @@ export function useI18n() {
 
   const locale = computed<Locale>(() => {
     if (userLocale.value) return userLocale.value
-    const lang = language.value ?? 'pt'
+    const lang = language.value ?? 'en'
     return lang.startsWith('pt') ? 'pt' : 'en'
   })
 
