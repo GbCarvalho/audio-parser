@@ -115,16 +115,11 @@ const transcripts = computed<TranscriptItem[]>(() =>
 
       <!-- Audio player -->
       <div class="mb-4 shrink-0 border border-border-warm bg-surface p-4 sm:p-5">
-        <ClientOnly>
-          <WaveformPlayer
-            ref="player"
-            :src="AUDIO_URL"
-            @timeupdate="currentTime = $event"
-          />
-          <template #fallback>
-            <div class="h-14 w-full animate-pulse bg-surface-alt" />
-          </template>
-        </ClientOnly>
+        <WaveformPlayer
+          ref="player"
+          :src="AUDIO_URL"
+          @timeupdate="currentTime = $event"
+        />
       </div>
 
       <!-- Tabs -->

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import WaveSurfer from 'wavesurfer.js'
+import type WaveSurfer from 'wavesurfer.js'
 
 const props = defineProps<{ src: string }>()
 const emit = defineEmits<{ timeupdate: [time: number] }>()
@@ -49,8 +49,10 @@ function play() {
 
 defineExpose({ seekTo, play })
 
-onMounted(() => {
+onMounted(async () => {
   if (!containerRef.value) return
+
+  const { default: WaveSurfer } = await import('wavesurfer.js')
 
   ws = WaveSurfer.create({
     container: containerRef.value,
